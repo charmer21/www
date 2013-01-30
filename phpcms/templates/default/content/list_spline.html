@@ -1,0 +1,127 @@
+{template "content","header_info"}
+<div class="wp">
+	<div id="search-data">
+        <dl class="searchitem">
+    		{php $start = intval($_GET['start'])}
+        	<dt class="blue"><span>专线起点：</span>
+			<!--根节点parentId=0-->
+			{php $starts = show_mylinkage($info_linkageid,$cityid,0,$modelid, 'start')}
+        	{loop $starts  $startarea}
+	        	{if $start == $startarea['linkageid'] || get_linkage_level($info_linkageid,$start)== $startarea['linkageid']}
+				<em>{$startarea['name']}</em>
+				{else}
+	        	<a href="{$startarea['url']}">{$startarea['name']}</a> 
+				{/if}
+            {/loop}</dt>
+            {php $startsub_zone = show_linkage($info_linkageid,$start,$cityid,$modelid, 'start')}
+            {if !empty($startsub_zone)}
+				<dd><span>所辖市县：</span>
+				{loop $startsub_zone $startarea}
+					{if $start == $startarea['linkageid']}
+						<em>{$startarea['name']}</em>
+					{else}
+						<a href="{$startarea['url']}">{$startarea['name']}</a> 				
+					{/if}
+				{/loop}</dd>
+            {/if}
+        </dl>
+        
+        <dl class="searchitem">
+    		{php $end = intval($_GET['end'])}
+        	<dt class="blue"><span>专线终点：</span>
+			<!--根节点parentId=0-->
+			{php $ends = show_mylinkage($info_linkageid,$cityid,0,$modelid, 'end')}
+        	{loop $ends  $endarea}
+	        	{if $end == $endarea['linkageid'] || get_linkage_level($info_linkageid,$end)== $endarea['linkageid']}
+				<em>{$endarea['name']}</em>
+				{else}
+	        	<a href="{$endarea['url']}">{$endarea['name']}</a> 
+				{/if}
+            {/loop}</dt>
+            {php $endsub_zone = show_linkage($info_linkageid,$end,$cityid,$modelid, 'end')}
+            {if !empty($endsub_zone)}
+				<dd><span>所辖市县：</span>
+				{loop $endsub_zone $endarea}
+					{if $end == $endarea['linkageid']}
+						<em>{$endarea['name']}</em>
+					{else}
+						<a href="{$endarea['url']}">{$endarea['name']}</a> 				
+					{/if}
+				{/loop}</dd>
+            {/if}
+        </dl>
+    </div>
+    <div class="bk15"></div>
+    <ul class="tabitem cu-span clear">
+		{loop filters('transport_type',$modelid) $r}
+			<li {if $_GET['transport_type'] == $r[value]}class="on"{/if}><a href="{$r[url]}"><span>{$r[name]}</span></a></li>
+		{/loop}			
+        <li class="add"><a href="index.php?m=member&c=content&a=info_publish&siteid=1&catid={$catid}&city={$city}&zone={$zone}" target="_blank">免费发布信息>></a></li>
+    </ul>
+    <ul class="filter clear">
+    	<li>找到相关信息<b id="total"></b>条</li>
+    </ul>
+</div>
+<div class="wp clear info-article">
+	<div class="col-right">
+        <div class="col-ad">
+        <h6><a href="" class="red rt">赞助商</a>广告</h6>
+        <a href="http://www.mtxxlm.net"><img src="http://www.mtxxlm.net/file/upload/images/liming.gif" title="榆林市利民煤炭运输有限公司"/></a><br />
+        <a href="" class="blue1">陕西榆林金牛煤矿</a><br />
+        <a href="" class="blue1">榆林榆树湾煤矿</a><br />
+        <a href="" class="blue1">榆林杨伙盘煤矿</a><br />
+        </div>
+    </div>
+	<div class="col-auto">
+	{php $sql = structure_filters_sql($modelid,$cityid)}
+	{php $cachetime = getinfocache('info_cachetime')}
+	<table cellspacing="0" width="100%" cellpadding="0" class="info-list">
+		<tbody> 
+			{php $top_posid = ($zone==0) ? getinfocache('top_city_posid') : (get_linkage_level($info_linkageid,$zone,'child') ? getinfocache('top_zone_posid') : getinfocache('top_district_posid'))}
+			{php $where = '1=1';}
+<!--			{php $where = ($zone==0) ? '`extention` LIKE \''.$cityid.'_%\'' : (get_linkage_level($info_linkageid,$zone,'child') ? '`extention` LIKE \''.$cityid.'_'.$zone.'%\'' : '`extention` = \''.$cityid.'_'.get_linkage_level($info_linkageid,$zone,'parentid').'_'.$zone.'\'')}-->
+			{pc:content action="position" catid="$catid" posid="$top_posid" where="$where" order="listorder DESC" num="10" expiration="1" cache="$cachetime"}
+				{loop $data $r}
+					<tr>
+					<td><a href="{$r[url]}" class="title" title="{$r[title]}">{str_cut($r[title],44)}</a> ({if $r[zone]}<a href="{structure_filters_url('zone',array('zone'=>$r[zone]),0,$modelid)}" class="blue">{get_linkage($r[zone], $info_linkageid, ' - ', 0)}</a> - {/if}<span class="isbiz">{box('transport_type',$r[transport_type],$modelid)}</span>)<span class="ding">顶</span></td>
+					<td width="100" class="text-c">{if $r[start]}<a href="{structure_filters_url('start',array('start'=>$r[start]),0,$modelid)}" class="blue">{get_linkage($r[start], $info_linkageid, ' - ', 0)}</a>{/if} -- {if $r[end]}<a href="{structure_filters_url('end',array('end'=>$r[end]),0,$modelid)}" class="blue">{get_linkage($r[end], $info_linkageid, ' - ', 0)}</a>{/if}</td>
+<!--					<td width="80" class="text-c">[<b>{if $r[zone]}<a href="{structure_filters_url('zone',array('zone'=>$r[zone]),0,$modelid)}" class="blue">{get_linkage($r[zone], $info_linkageid, ' - ', 0)}</a> {/if}</b>]</td>-->
+					<td width="80" class="text-c"><b>{if $r[expenses]}{$r[expenses]}元{/if}</b></td>
+					<td width="80" class="text-c">{timeinterval($r[inputtime])}</td>
+					</tr>					
+				{/loop}
+			{/pc}
+			{php $urlrule = makeurlrule()}
+			{pc:content action="lists" catid="$catid"  where="$sql" num="15" order="listorder DESC,inputtime DESC" page="$page" moreinfo="1" cache="$cachetime" urlrule="$urlrule"}
+			<div style="display:none" id="content_total">{$content_total}</div>	
+			{loop $data $r}
+				{php $photos_num = count(string2array($r[photos]))}
+			        <tr>
+			        <td><a href="{$r[url]}" class="title" title="{$r[title]}">{str_cut($r[title],44)}</a> ({if $r[zone]}<a href="{structure_filters_url('zone',array('zone'=>$r[zone]),0,$modelid)}" class="blue">{get_linkage($r[zone], $info_linkageid, ' - ', 0)}</a> - {/if}<span class="isbiz">{box('transport_type',$r[transport_type],$modelid)}</span>) {if $photos_num}<span class="tu">{$photos_num}图</span>{/if}</td>
+					<td width="100" class="text-c">{if $r[start]}<em class="redfont"><a href="{structure_filters_url('start',array('start'=>$r[start]),0,$modelid)}" class="blue">{get_linkage($r[start], $info_linkageid, ' - ', 0)}</a></em>{/if} -- {if $r[end]}<em class="redfont"><a href="{structure_filters_url('end',array('end'=>$r[end]),0,$modelid)}" class="blue">{get_linkage($r[end], $info_linkageid, ' - ', 0)}</a></em>{/if}</td>
+<!--					<td width="80" class="text-c">[{if $r[zone]}<a href="{structure_filters_url('zone',array('zone'=>$r[zone]),0,$modelid)}" class="blue">{get_linkage($r[zone], $info_linkageid, ' - ', 0)}</a>{/if}]</td>-->
+					<td width="80" class="text-c"><b>{if $r[expenses]}{$r[expenses]}元{/if}</b></td>
+					<td width="80" class="text-c">{timeinterval($r[inputtime])}</td>
+			        </tr>
+				{/loop}
+			{/pc}
+			
+		</tbody>		
+	</table>
+	<div id="pages" class="text-c">{$pages}</div>
+    </div>
+</div>
+<script language="JavaScript" src="{APP_PATH}api.php?op=top"></script>
+<script language="javascript" type="text/javascript">
+$(document).ready(function(){
+	var content_total = $("#content_total").html();
+	$("#total").html(content_total);
+	
+});
+function i_query() {
+	var param = $('#q').val();
+	var url = "{structure_filters_url('q',array('q'=>'"+param+"'),2)}";
+	location.href = url;
+}
+</script>
+{template "content","footer"}

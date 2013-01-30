@@ -1,0 +1,147 @@
+{template "content","header_info"}
+<div class="wp">
+	<div id="search-data">
+    	<dl class="searchitem">
+    		{php $zone = intval($_GET['zone'])}
+        	<dt class="blue"><span>区域：</span>
+			<!--根节点parentId=0-->
+			{php $zones = show_mylinkage($info_linkageid,$cityid,0,$modelid)}
+        	{loop $zones  $area}
+	        	{if $zone == $area['linkageid'] || get_linkage_level($info_linkageid,$zone)== $area['linkageid']}
+				<em>{$area['name']}</em>
+				{else}
+	        	<a href="{$area['url']}">{$area['name']}</a> 
+				{/if}
+            {/loop}</dt>
+            {php $sub_zone = show_linkage($info_linkageid,$zone,$cityid,$modelid)}
+            {if !empty($sub_zone)}
+				<dd><span>所辖市县：</span>
+				{loop $sub_zone $area}
+					{if $zone == $area['linkageid']}
+						<em>{$area['name']}</em>
+					{else}
+						<a href="{$area['url']}">{$area['name']}</a> 				
+					{/if}
+				{/loop}</dd>
+            {/if}
+        </dl>
+        <dl class="searchitem">
+			<dt class="blue"><span>粒度：</span>
+			{loop filters('size',$modelid) $r}
+				{$r[menu]}
+			{/loop}
+			</dt>
+        </dl>
+        <dl class="searchitem">
+			<dt class="blue"><span>发热量：</span>
+			{php $heat_range = array('3000-4000大卡|3000_4000','4000-4500大卡|4000_4500','4500-5000大卡|4500_5000','5000-5500大卡|5000_5500','5500-6000大卡|5500_6000','6000-6500大卡|6000_6500','6500-7000大卡|6500_7000','7000大卡以上|7000_9999')}
+			{loop filters('heat',$modelid,$heat_range) $r}
+				{$r[menu]}
+			{/loop}
+			</dt>
+        </dl>
+        <dl class="searchitem">
+			<dt class="blue"><span>挥发份：</span>
+			{php $volatility_range = array('10%以下|0.001_10','10%-20%|10_20','20%-28%|20_28','28%-37%|28_37','37%以上|37_9999')}
+			{loop filters('volatility',$modelid,$volatility_range) $r}
+				{$r[menu]}
+			{/loop}
+			</dt>
+        </dl>
+        <dl class="searchitem">
+			<dt class="blue"><span>灰分：</span>
+			{php $ash_range = array('5%以下|0.001_5','5%-10%|5_10','10%-15%|10_15','15%-20%|15_20','20%-30%|20_30','30%-40%|30_40','40%以上|40_9999')}
+			{loop filters('ash',$modelid,$ash_range) $r}
+				{$r[menu]}
+			{/loop}
+			</dt>
+        </dl>
+        <dl class="searchitem">
+			<dt class="blue"><span>硫份：</span>
+			{php $sulphur_range = array('0.5%以下|0.001_0.5','0.5%-1.0%|0.5_1.0','1.0%-1.5%|1.0_1.5','1.5%-2%|1.5_2.0','2.0%-3.0%|2.0_3.0','3.0%以上|3.0_9999')}
+			{loop filters('sulphur',$modelid,$sulphur_range) $r}
+				{$r[menu]}
+			{/loop}
+			</dt>
+        </dl>
+        <dl class="searchitem">
+			<dt class="blue"><span>水分：</span>
+			{php $water_range = array('0.5%以下|0.001_0.5','0.5%-1.0%|0.5_1.0','1.0%-1.5%|1.0_1.5','1.5%-2.0%|1.5_2.0','2.0%-3.0%|2.0_3.0','3.0%以上|3.0_9999.9')}
+			{loop filters('water',$modelid,$water_range) $r}
+				{$r[menu]}
+			{/loop}
+			</dt>
+        </dl>
+    </div>
+    <div class="bk15"></div>
+    <ul class="tabitem cu-span clear">
+		{loop filters('coal_type',$modelid) $r}
+			<li {if $_GET['coal_type'] == $r[value]}class="on"{/if}><a href="{$r[url]}"><span>{$r[name]}</span></a></li>
+		{/loop}			
+        <li class="add"><a href="index.php?m=member&c=content&a=info_publish&siteid=1&catid={$catid}&city={$city}&zone={$zone}" target="_blank">免费发布信息>></a></li>
+    </ul>
+    <ul class="filter clear">
+    	<li>找到相关信息<b id="total"></b>条</li>
+    </ul>
+</div>
+<div class="wp clear info-article">
+	<div class="col-right">
+        <div class="col-ad">
+        <h6><a href="" class="red rt">赞助商</a>广告</h6>
+        <a href="http://www.mtxxlm.net"><img src="http://www.mtxxlm.net/file/upload/images/liming.gif" title="榆林市利民煤炭运输有限公司"/></a><br />
+        <a href="" class="blue1">陕西榆林金牛煤矿</a><br />
+        <a href="" class="blue1">榆林榆树湾煤矿</a><br />
+        <a href="" class="blue1">榆林杨伙盘煤矿</a><br />
+        </div>
+    </div>
+	<div class="col-auto">
+	{php $sql = structure_filters_sql($modelid,$cityid)}
+	{php $cachetime = getinfocache('info_cachetime')}
+	<table cellspacing="0" width="100%" cellpadding="0" class="info-list">
+		<tbody> 
+			{php $top_posid = ($zone==0) ? getinfocache('top_city_posid') : (get_linkage_level($info_linkageid,$zone,'child') ? getinfocache('top_zone_posid') : getinfocache('top_district_posid'))}
+<!--			{php $where = ($zone==0) ? '`extention` LIKE \''.$cityid.'_%\'' : (get_linkage_level($info_linkageid,$zone,'child') ? '`extention` LIKE \''.$cityid.'_'.$zone.'%\'' : '`extention` = \''.$cityid.'_'.get_linkage_level($info_linkageid,$zone,'parentid').'_'.$zone.'\'')}-->
+			{php $where = '1=1';}
+			{pc:content action="position" posid="$top_posid" where="$where" order="listorder DESC" num="10" expiration="1" cache="$cachetime"}
+				{loop $data $r}
+					<tr>
+					<td><a href="{$r[url]}" class="title" title="{$r[title]}">TOP{str_cut($r[title],44)}</a> ({if $r[zone]}<a href="{structure_filters_url('zone',array('zone'=>$r[zone]),0,$modelid)}" class="blue">{get_linkage($r[zone], $info_linkageid, ' - ', 0)}</a> - {/if}{if $r[xiaoqu_address]}{$r[xiaoqu_address]}{/if})<span class="ding">顶</span></td>
+					<td width="80" class="text-c"><b>{if $r[price]}{$r[price]}元/吨{else}面议{/if}</b></td>
+					<td width="100" class="text-c">{if $r[heat]}{$r[heat]}{/if}&nbsp;{if $r[sulphur]}{$r[sulphur]}{/if}</td>
+					<td width="80" class="text-c">{timeinterval($r[inputtime])}</td>
+					</tr>					
+				{/loop}
+			{/pc}
+			{php $urlrule = makeurlrule()}
+			{pc:content action="lists" catid="$catid"  where="$sql" num="15" order="listorder DESC,updatetime DESC, inputtime DESC" page="$page" moreinfo="1" cache="$cachetime" urlrule="$urlrule"}
+			<div style="display:none" id="content_total">{$content_total}</div>	
+			{loop $data $r}
+			{php $photos_num = count(string2array($r[photos]))}
+	         <tr>
+	         <td><a href="{$r[url]}" class="title" title="{$r[title]}">{str_cut($r[title],44)}</a> ({if $r[zone]}<a href="{structure_filters_url('zone',array('zone'=>$r[zone]),0,$modelid)}" class="blue">{get_linkage($r[zone], $info_linkageid, ' - ', 0)}</a> - {/if}<span class="isbiz">{box('coal_type',$r[coal_type],$modelid)}</span>) {if $photos_num}<span class="tu">{$photos_num}图</span>{/if}</td>
+	        <td width="160" class="text-c">{if $r[heat]}[热<em style="color: red;font-weight: bold;">{$r[heat]}</em>大卡]{/if}&nbsp;&nbsp;{if $r[sulphur]}[硫<em style="color: red;font-weight: bold;">{$r[sulphur]}</em>%]{/if}</td>
+	        <td width="100" class="text-c"><b>{if $r[price]}<em style="color: red;">{$r[price]}</em>元/吨&nbsp;&nbsp;{else}面议{/if}</b></td>
+	        <td width="80" class="text-c">{timeinterval($r[updatetime])}</td>
+	        </tr>
+			{/loop}
+			{/pc}
+			
+		</tbody>		
+	</table>
+	<div id="pages" class="text-c">{$pages}</div>
+    </div>
+</div>
+<script language="JavaScript" src="{APP_PATH}api.php?op=top"></script>
+<script language="javascript" type="text/javascript">
+$(document).ready(function(){
+	var content_total = $("#content_total").html();
+	$("#total").html(content_total);
+	
+});
+function i_query() {
+	var param = $('#q').val();
+	var url = "{structure_filters_url('q',array('q'=>'"+param+"'),2)}";
+	location.href = url;
+}
+</script>
+{template "content","footer"}

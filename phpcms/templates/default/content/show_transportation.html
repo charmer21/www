@@ -1,0 +1,167 @@
+{template "content","header_info"}
+<div class="wp" id="content">
+	<div class="Location blue1"><a href="{siteurl($siteid)}">首页</a> > {catpos($catid)}
+		{loop $zone $r}
+			{if $r[parentid]}<a href="{structure_filters_url('zone',array('zone'=>$r[linkageid],'catid'=>$catid,'city'=>$city),0,$modelid)}">{$r[name]}</a> > {/if}
+		{/loop}{$title}
+	</div>
+	<div class="info-show clear">
+    	<div class="hd">
+        	<h1>{$title} &nbsp;&nbsp;&nbsp;&nbsp;[发布地区-{loop $zone $r}&gt;<a href="{structure_filters_url('zone',array('zone'=>$r[linkageid],'catid'=>$catid,'city'=>$city),0,$modelid)}" class="blue">{$r[name]}</a>{/loop}]</h1>
+            <p class="blue1"><a href="javascript:;" class="f12 fn blue" onclick="add_favorite('{$title}');" id='favorite' title="收藏到会员中心">(收藏)</a><span class="gray4">{$updatetime}</span>浏览:<font color="red" id="hits">0</font>次</p>
+        </div>
+        <div class="info-list">
+        
+        	<ul class="data">
+			<li class="price">
+			<span class="t">价&nbsp;&nbsp;格：</span>
+				{if !empty($expenses) && $expenses!=0}
+                <em class="redfont">{$expenses}</em> 元
+                {else}
+                <em class="redfont">面议</em>
+                {/if}
+			</li>
+			</ul>
+        	<ul class="attr">
+               {if !empty($volume) && $volume!=0}
+                <li class="l">
+                	<span class="t">运&nbsp;&nbsp;量：</span>
+                	<em class="redfont">{$volume}</em>
+                </li>
+                {/if}
+               	{if $start && $start!=''}
+                <li class="l">
+                	<span class="t">装货地：</span> {$start}
+                </li>
+                {/if}
+               	{if $end && $end!=''}
+                <li class="l">
+                	<span class="t">卸货地：</span> {$end}
+                </li>
+                {/if}
+                {if $start && $start!=''}
+                <li class="clear">
+                	<span class="t">装卸地：</span> {$start} ---- {$end}
+               	</li>
+                {/if}
+    		</ul>
+    		<div class="bk10"></div>
+    		<div class="bk10"></div>
+    		<div class="bk10"></div>
+            <div class="info-share">
+				<span class="jiathis_style">
+					<span class="jiathis_txt">分享到：</span>
+					<a class="jiathis_button_qzone">QQ空间</a>
+					<a class="jiathis_button_tsina">新浪微博</a>
+					<a class="jiathis_button_tqq">腾讯微博</a>
+					<a class="jiathis_button_renren">人人网</a>
+					<a class="jiathis_button_fav">收藏夹</a>
+					<a class="jiathis_button_copy">复制网址</a>
+					<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+				</span>
+            </div>
+        </div>
+        <div class="info-user">
+	        <dl class="user">
+	        	<dt><span class="t">联   系   人：</span>{$contact}</dt>
+	        	{if $qq}<dt><span class="t">联系QQ：</span>{$qq}</dt>{/if}
+	            <dt><span class="t">联系电话：</span>{if getinfocache('img_contact')}{string2img($phone)}{else}{$phone}{/if}</dt>
+	        </dl>
+	        <div class="btn">
+	        	<div class="sms" onclick="send_sms('{$catid}', '{$id}');" ><a href="javascript:;" id='sms_btn' title="向他发短信咨询">短信咨询</a></div>
+	        	<div class="fav" id="fav_div" onclick="add_favorite('{$title}');"><a href="javascript:;" id='favorite_btn' title="收藏到会员中心">收藏</a></div>
+	        </div>
+	        <div class="Note">联系我时，请说是在 <span style="color:red;" >煤炭信息联盟网</span> 上看到的，谢谢！</div>
+        </div>
+    </div>
+    <div class="bk10"></div>
+	<div class="content-sub clear">
+    	<div class="col-left">
+            <div class="des">
+            	<div class="title">详细描述</div>
+            	<div class="contents">
+            	{$content}
+				{if $rs[map]}
+				<h5>地图位置</h5>
+				{$map}
+				{/if}
+				</div>
+            </div>
+            <div class="bk10"></div>
+            <div class="category-sub-new">
+	        	<div class="title">最新信息</div>
+					{pc:content action="lists" catid="32" num="15" order="updatetime DESC" return="buyinfo_new"}
+					{pc:content action="lists" catid="32" num="15" order="listorder DESC,updatetime DESC" return="saleinfo_new"}
+					{php $data = array_merge($saleinfo_new, $buyinfo_new);}
+					{php shuffle($data);}
+		            <ul class="clear">
+					{loop $data $r}
+					<li>
+					{if $r[catid]==28}
+	             	<span class="wordbg-maroon">卖</span>&nbsp;
+	             	{elseif $r[catid]==29}
+	             	<span class="wordbg-forestgreen">买</span>&nbsp;
+	             	{else}
+	             	<span class="wordbg-orange">运</span>&nbsp;
+	             	{/if}
+					&nbsp;<a href="{$r[url]}" class="blue1" title="{$r[title]}" {$r[style]}>{str_cut($r[title],34,'')}</a>&nbsp;&nbsp;&nbsp;<span class="info-aux">[<a href="{structure_filters_url('zone',array('zone'=>$r['zone'],'catid'=>$r['catid']),0,20)}" class="blue">{get_linkage($r['zone'], 1, ' - ', 0)}</a>]</span>
+					</li>
+					{/loop}			
+		            </ul>
+	        </div>
+            
+            <ul class="pic picbig clear">
+			{loop $photos $photo}
+				<li><div class="img-wrap"><a href="{$photo['url']}" title="{$photo['alt']}" target="_blank"><img src="{$photo['url']}" width="120" height="160" /></a></div></li>
+			{/loop}
+            </ul>
+        </div>
+        <div class="col-right">
+        	<div class="category-sub">
+        	<div class="title">相关信息</div>
+            <ul>
+			{pc:content action="relation" relation="$relation" id="$id" catid="$catid" num="20" keywords="$rs[keywords]"}
+			{if $data}
+			{loop $data $r}
+				<li><a href="{$r[url]}" class="blue1" title="{$r[title]}" {$r[style]}>{str_cut($r[title],46,'')}</a></li>
+			{/loop}	
+			 {/if}
+			{/pc}			
+            </ul>
+        </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="{JS_PATH}jquery.sgallery.js"></script>
+<script language="JavaScript" src="{APP_PATH}api.php?op=count&id={$id}&modelid={$modelid}"></script>
+<script type="text/javascript">
+function add_favorite(title) {
+	$.getJSON('{APP_PATH}api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+		if(data.status==1)	{
+			$("#favorite").html('收藏成功');
+			$("#favorite_btn").html('&nbsp;&nbsp;收藏成功');
+			$("#fav_div").css({"background-position":"0 -167px"});
+		} else {
+			alert('请登录');
+		}
+	});
+}
+function send_sms(catid, id) {
+	alert('该功能正在开发中，尽请期待……');
+	return;
+	$.getJSON('{APP_PATH}api.php?op=send_sms&catid='+catid+'&id='+id+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+		if(data.status==1)	{
+			
+		} else {
+			alert('请先登录');
+		}
+	});
+}
+</script>
+
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1357379157271542" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+{template "content","footer"}
