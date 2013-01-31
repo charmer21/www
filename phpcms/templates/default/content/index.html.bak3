@@ -1,0 +1,295 @@
+{template "content","header"}
+<script type="text/javascript" src="{JS_PATH}my/common.js"></script>
+<script type="text/javascript" src="{JS_PATH}my/marquee/jquery.marquee.min.js"></script>
+<link href="{CSS_PATH}my/marquee/jquery.marquee.min.css" rel="stylesheet" type="text/css" />
+<!--main-->
+<div class="main">
+	<!--左右滚屏推荐-->
+	<div class="box">
+	<div class="marq-box">
+        <ul id="top-marquee" class="top-marquee">
+    	{pc:content action="lists" catid="28" num="15" order="id DESC" return="saleinfo"}
+        <li>
+        {loop $saleinfo $v}
+        	<span><span class="wordbg-maroon">卖</span>&nbsp;<a href="{$v['url']}" target="_blank" title="{$v['title']}"{title_style($v[style])}>{str_cut($v['title'],50)}</a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        {/loop}
+        </li>
+        <li>
+        {/pc}
+        {pc:content action="lists" catid="29" num="15" order="id DESC" return="buyinfo"}
+        {loop $buyinfo $v}
+        	<span><span class="wordbg-lime">买</span>&nbsp;<a href="{$v['url']}" target="_blank" title="{$v['title']}"{title_style($v[style])}>{str_cut($v['title'],50)}</a></span>
+        {/loop}
+        {/pc}
+        </li>
+        </ul>
+   	</div>
+	</div>
+	<div class="bk10"></div>
+	<script type="text/javascript">
+		$(document).ready(function (){
+		  $("#top-marquee").marquee();
+		});
+	</script>
+	<!--左右滚屏推荐-->
+	<div class="box">
+		<table>
+			<tr>
+			<td><img alt="榆林榆树湾煤矿" src="http://www.mtxxlm.net/file/upload/images/yushuwan.jpg"> </td>
+			<td><img alt="府谷京府八尺沟煤矿" src="http://www.mtxxlm.net/file/upload/images/bachigou.jpg"> </td>
+			<td><img alt="陕西黑龙沟矿业" src="http://www.mtxxlm.net/file/upload/images/heilonggou.jpg"> </td>
+			<td><img alt="府谷恒益煤矿" src="http://www.mtxxlm.net/file/upload/images/hengyi.jpg"> </td>
+			<td><img alt="府谷县鸿峰煤矿" src="http://www.mtxxlm.net/file/upload/images/hongfeng.jpg"> </td>
+			</tr>
+		</table>
+	</div>
+	<div class="bk10"></div>
+	<div class="col-left">
+		<!--合作企业    开始-->
+        <div class="box">
+        <h5>合作企业<a href="http://www.mtxxlm.net/index.php?m=yp&c=index&a=company" class="more">更多>></a></h5>
+        <ul id="company-marquee" class="company-marquee">
+        	<li>
+                <table>
+			        <tr>
+				        <td>
+					        <div class="img-wrap">
+					            <a href="http://www.xbmtxx.net" title="榆林泰发祥矿业"><img src="http://www.mtxxlm.net/file/upload/images/taifaxiang.jpg" title="榆林泰发祥矿业"/></a>
+					        </div>
+					        <a href="http://www.xbmtxx.net" title="榆林泰发祥矿业">榆林泰发祥矿业</a>
+				        </td>
+				        <td>
+					        <div class="img-wrap">
+			                    <a href="http://www.xbmtxx.net" title="榆林同达煤化公司"><img src="http://www.mtxxlm.net/file/upload/images/tongda.jpg" title="榆林同达煤化公司"/></a>
+			                </div>
+			                <a href="http://www.xbmtxx.net" title="榆林同达煤化公司">榆林同达煤化公司</a>
+				        </td>
+				        <td>
+					        <div class="img-wrap">
+			                    <a href="http://www.xbmtxx.net" title="神木响水河煤矿"><img src="http://www.mtxxlm.net/file/upload/images/xiangshuihe.jpg" title="神木响水河煤矿"/></a>
+			                </div>
+			                <a href="http://www.mtxxlm.net" title="神木响水河煤矿">神木响水河煤矿</a>
+				        </td>
+				        <td>
+					        <div class="img-wrap">
+			                    <a href="http://www.mtxxlm.net" title="榆林市利民煤炭运输有限公司"><img src="http://www.mtxxlm.net/file/upload/images/liming.gif" title="榆林市利民煤炭运输有限公司"/></a>
+			                </div>
+			                <a href="http://www.mtxxlm.net" title="榆林市利民煤炭运输有限公司">榆林市利民煤炭运输有限公司</a>
+				        </td>
+			        </tr>
+			        </table>
+            </li>
+            <li>
+                <table>
+			        <tr>
+				        <td>
+					        <div class="img-wrap">
+					            <a href="http://www.mtxxlm.net" title="榆林杨伙盘煤矿"><img src="http://www.mtxxlm.net/file/upload/images/yanghuopan.jpg" title="榆林杨伙盘煤矿"/></a>
+					        </div>
+					        <a href="http://www.mtxxlm.net" title="榆林杨伙盘煤矿">榆林杨伙盘煤矿</a>
+				        </td>
+				        <td>
+					        <div class="img-wrap">
+			                    <a href="http://www.mtxxlm.net" title="陕西榆林金牛煤矿"><img src="http://www.mtxxlm.net/file/upload/images/jinniu.jpg" title="陕西榆林金牛煤矿"/></a>
+			                </div>
+			                <a href="http://www.mtxxlm.net" title="陕西榆林金牛煤矿">陕西榆林金牛煤矿</a>
+				        </td>
+				        <td>
+					        <div class="img-wrap">
+			                    <a href="http://www.mtxxlm.net" title="神木赵仓峁煤矿"><img src="http://www.mtxxlm.net/file/upload/images/zhaocangmao.jpg" title="神木赵仓峁煤矿"/></a>
+			                </div>
+			                <a href="http://www.mtxxlm.net" title="神木赵仓峁煤矿">神木赵仓峁煤矿</a>
+				        </td>
+				        <td>
+					        <div class="img-wrap">
+			                    <a href="http://www.mtxxlm.net" title="榆林榆树湾煤矿"><img src="http://www.mtxxlm.net/file/upload/images/yushuwan.jpg" title="榆林榆树湾煤矿"/></a>
+			                </div>
+			                <a href="http://www.mtxxlm.net" title="榆林榆树湾煤矿">榆林榆树湾煤矿</a>
+				        </td>
+			        </tr>
+		        </table>
+            </li>
+        </ul>
+<!--          {pc:content  action="position" posid="12" thumb="1" order="listorder DESC" num="10"}-->
+<!--            <ul class="content news-photo picbig">-->
+<!--             {loop $data $r}-->
+<!--            	<li>-->
+<!--                    <div class="img-wrap">-->
+<!--                        <a href="{$r[url]}" title="{$r[title]}"><img src="{thumb($r[thumb],110,0)}" title="{$r[title]}"/></a>-->
+<!--                    </div>-->
+<!--                    <a href="{$r[url]}" title="{$r[title]}">{str_cut($r[title],20)}</a>-->
+<!--                </li>-->
+<!--                {/loop}-->
+<!--            </ul>-->
+<!--            {/pc}-->
+        </div>
+        <script type="text/javascript">
+		$(document).ready(function (){
+			  $("#company-marquee").marquee();
+			});
+		</script>
+		<!--合作企业    结束-->
+		
+		<!--供求信息  开始-->
+		<div class="bk10"></div>
+		<script>
+			function setTab(name,cursel,n){
+				for(i=1;i<=n;i++){
+					var menu=document.getElementById(name+i);
+					var con=document.getElementById("con_"+name+"_"+i);
+					menu.className=i==cursel?"hover":"";
+					con.style.display=i==cursel?"block":"none";
+				}	
+			}
+		 </script>
+        <div class="box">
+        <h5>
+         <div class="Menubox">
+		    <ul>
+		      <li id="menu1" onmouseover="setTab('menu',1,3)" class="hover">煤炭供应</li>
+		      <li id="menu2" onmouseover="setTab('menu',2,3)" >煤炭采购</li>
+		      <li id="menu3" onmouseover="setTab('menu',3,3)" >煤炭运输</li>
+		    </ul>
+		  </div>
+	  	</h5>
+	  	<div class="Contentbox">
+	  		{pc:content action="lists" catid="28" num="30" order="listorder DESC,updatetime DESC" return="saleinfo_new"}
+	        <div id="con_menu_1" class="hover">
+		      <ul class="list lh24 f14">
+		      	 {php $count=0;}
+	             {loop $saleinfo_new $v}
+	             	{if $count%2==0}
+	             	<li>
+	             	<span class="odd">
+	             	{else}
+	             	<span class="even">
+	             	{/if}
+	             	<span class="wordbg-maroon">卖</span>&nbsp;<a href="{$v['url']}" target="_blank" title="{$v['title']}"{title_style($v[style])}>{str_cut($v['title'],46)}</a> <span class="info-aux">[<a href="{structure_filters_url('zone',array('zone'=>$v['zone'],'catid'=>28),0,20)}" class="blue">{get_linkage($v['zone'], 1, ' - ', 0)}</a>] <script type="text/javascript">friendlyDate({$v['updatetime']})</script></span>
+	             	</span>
+	             	{if $count%2!=0}
+	             	</li>
+	             	{/if}
+	             {php $count++;}
+	             {/loop}
+	           </ul>
+		    </div>
+		    {/pc}
+		    {pc:content action="lists" catid="29" num="30" order="updatetime DESC" return="buyinfo_new"}
+	        <div id="con_menu_2" style="display:none">
+		      <ul class="list lh24 f14">
+		      	{php $count=0;}
+	            {loop $buyinfo_new $v}
+	            {if $count%2==0}
+	            <li>
+	             	<span class="odd">
+	             	{else}
+	             	<span class="even">
+	             	{/if}
+	            	<span class="wordbg-lime">买</span>&nbsp;<a href="{$v['url']}" target="_blank" title="{$v['title']}"{title_style($v[style])}>{str_cut($v['title'],46)}</a> <span class="info-aux">[<a href="{structure_filters_url('zone',array('zone'=>$v['zone'],'catid'=>29),0,21)}" class="blue">{get_linkage($v['zone'], 1, ' - ', 0)}</a>]  <script type="text/javascript">friendlyDate({$v['updatetime']});</script></span>
+	            	</span>
+	             	{if $count%2!=0}
+	             	</li>
+	             	{/if}
+	             {php $count++;}
+	            {/loop}
+	          </ul>
+		    </div>
+		    {/pc}
+		    {pc:content action="lists" catid="32" num="30" order="updatetime DESC" return="transinfo_new"}
+	        <div id="con_menu_3" style="display:none">
+		      <ul class="list lh24 f14">
+		      	{php $count=0;}
+	            {loop $transinfo_new $v}
+	            {if $count%2==0}
+	            <li>
+	             	<span class="odd">
+	             	{else}
+	             	<span class="even">
+	             	{/if}
+	            	<span class="wordbg-lime">买</span>&nbsp;<a href="{$v['url']}" target="_blank" title="{$v['title']}"{title_style($v[style])}>{str_cut($v['title'],60)}</a> <span class="info-aux">[<a href="{structure_filters_url('zone',array('zone'=>$v['zone'],'catid'=>29),0,21)}" class="blue">{get_linkage($v['zone'], 1, ' - ', 0)}</a>]  <script type="text/javascript">friendlyDate({$v['updatetime']});</script></span>
+	            	</span>
+	             	{if $count%2!=0}
+	             	</li>
+	             	{/if}
+	             {php $count++;}
+	            {/loop}
+	          </ul>
+		    </div>
+		    {/pc}
+	      </div>
+        </div>
+		<!--供求信息  结束-->
+		
+    </div>
+    <div class="col-auto">
+    	<div class="box">
+        	 <h5 class="title-2">公告<a href="" class="more">&nbsp;</a></h5>
+             <div class="content">
+                {pc:announce  action="lists" siteid="$siteid" num="2"}
+                <ul class="list lh24 f14">
+                   {loop $data $r}
+                     <li> <a href="{APP_PATH}index.php?m=announce&c=index&a=show&aid={$r['aid']}">{$r['title']}</a></li>
+                   {/loop}
+                </ul>
+                {/pc}
+            </div>
+        </div>
+        <div class="bk10"></div>
+        <div class="box">
+            <h5 class="title-2"><span class="rt fn f12 tab SwapTab"><span class="fb">热点</span> | <span >评论</span> | <span>关注</span></span>信息排行</h5>
+            <div class="tab-content">
+            <ul class="content digg">
+			{pc:content action="hits" catid="28" num="10" order="views DESC"}
+				{loop $data $r}
+					<li><a href="{$r[url]}" target="_blank" title="{$r[title]}"{title_style($r[style])}>{$r[title]}</a></li>
+				{/loop}
+			{/pc}
+            </ul>
+            <ul class="content digg hidden">
+			{pc:content action="hits" catid="29" num="10" order="views DESC"}
+				{loop $data $r}
+					<li><a href="{$r[url]}" target="_blank" title="{$r[title]}"{title_style($r[style])}>{$r[title]}</a></li>
+				{/loop}
+			{/pc}
+            </ul>
+            <ul class="content digg hidden">
+			{pc:content action="hits" catid="32" num="10" order="views DESC"}
+				{loop $data $r}
+					<li><a href="{$r[url]}" target="_blank" title="{$r[title]}"{title_style($r[style])}>{$r[title]}</a></li>
+				{/loop}
+			{/pc}
+            </ul>
+            </div>
+        </div><div class="bk10"></div>
+    </div>
+    <div class="bk10"></div>
+	<div class="box blogroll ylink">
+    	<h5><a href="{APP_PATH}index.php?m=link&siteid={$siteid}" hidefocus="true" class="rt">更多>></a>友情链接<a href="{APP_PATH}index.php?m=link&c=index&a=register&siteid={$siteid}" class="red">申请链接</a></h5>
+        <div class="bk10"></div>
+	<ul class="colli imgul">
+        {pc:link  action="type_list" siteid="$siteid" linktype="1" order="listorder DESC" num="8" return="pic_link"}
+        {loop $pic_link $v}
+        <li><a href="{$v['url']}" title="{$v['name']}" target="_blank"><img src="{$v[logo]}" width="88" height="31" /></a></li>
+        {/loop}
+        {/pc}
+    </ul>
+     {pc:link  action="type_list" siteid="$siteid" order="listorder DESC" num="10" return="dat"}
+     <div class="bk10"></div>
+	<div class="linka">
+		{loop $dat $v}
+              {if $type==0}
+              <a href="{$v[url]}" target="_blank">{$v[name]}</a> |
+              {else}
+              <a href="{$v[url]}" target="_blank"><img src="{$v[logo]}" width="88" height="31" style="border: 1px solid #FFBE7A;"></a> 
+              {/if}
+		{/loop}
+ 	</div>
+	{/pc}
+</div>
+</div>
+<script type="text/javascript"> 
+$(function(){
+	new SwapTab(".SwapTab","span",".tab-content","ul","fb");//排行TAB
+})
+</script>
+{template "content","footer"}

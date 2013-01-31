@@ -1,0 +1,72 @@
+<div class="footer">
+<!-- 快捷入口  -->
+<div id="pmenu" class="pmenu">
+  <ul id="navigationMenu">
+    <li> <a class="home" href="#"> </a> </li>
+    <li> <a class="about" href="#"> <span>煤炭</span> </a> </li>
+    <li> <a class="services" href="#"> <span>车辆</span> </a> </li>
+    <li> <a class="portfolio" href="#"> <span>专线</span> </a> </li>
+    <li> <a class="contact" href="#"> <span>短信平台</span> </a> </li>
+  </ul>
+</div>
+<!-- 快捷入口  end -->
+
+<!-- 浮动导航层  -->
+<div id=settings>settings</div>
+<div id=opciones>
+  <p><a href='#'>联盟</a></p>
+  <p><a href='#'>联盟</a></p>
+  <p><a href='#'>联盟</a></p>
+  <p><a href='#'>联盟</a></p>
+  <p><a href='#'>联盟</a></p>
+  <p><a href='#'>联盟</a></p>
+  <p><a href='#'>联盟</a></p>
+</div>
+<script type=text/javascript>
+$(document).ready(function(){
+  	$('#opciones').hide();
+	$('#settings').hover(function(){
+		$('#opciones').slideToggle();
+    }, function(){});
+	$('#opciones').hover(function(){},
+		function(){
+			$('#opciones').slideToggle();
+	    });
+  });
+</script>
+<!-- 浮动导航层  end -->
+
+<p class="info">
+ {pc:content action="category" catid="1" num="15" siteid="$siteid" order="listorder ASC"}
+   {loop $data $r}
+		<a href="{$r[url]}" target="_blank">{$r[catname]}</a> |  
+   {/loop}
+ {/pc}
+ <a href="{APP_PATH}index.php?m=link" target="_blank">友情链接</a>
+<br />
+Powered by <strong><a href="http://www.mtxxlm.net" target="_blank">煤炭信息联盟网</a></strong> &copy; 2011 <img src="{IMG_PATH}copyright.gif"/>{tjcode()}{php echo runhook('glogal_footer')}
+</br>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9e02ff5a8553031db7b820a6be4fbf5f' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</p>
+</div>
+<script type="text/javascript">
+$(function(){
+	$(".picbig").each(function(i){
+		var cur = $(this).find('.img-wrap').eq(0);
+		var w = cur.width();
+		var h = cur.height();
+	   $(this).find('.img-wrap img').LoadImage(true, w, h,'{IMG_PATH}s_nopic.gif');
+	});
+})
+</script>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jiathis_r.js?type=left&amp;move=0&amp;btn=l3.gif&amp;uid=1560220" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+</body>
+</html>
