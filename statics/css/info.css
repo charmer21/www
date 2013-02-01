@@ -139,6 +139,7 @@ a{color:#333}
 
 /*信息列表*/
 .info-article .col-right{ width:185px; border-left:1px solid #ccc; margin-left:10px; padding-left:10px}
+.info-article tr:hover{border-left:red 5px solid;background-color: #FFE6D9;}
 .col-ad{ line-height:26px}
 .col-ad h6{ font-weight:normal; border-bottom:1px solid #dadada; margin-bottom:10px;}
 .info-list td{ border-bottom:1px solid #ededed; height:36px; line-height:36px}

@@ -54,7 +54,7 @@
         <div class="info-user">
 	        <dl class="user">
 	        	<dt><span class="t">联   系   人：</span>{$contact}</dt>
-	        	{if $qq}<dt><span class="t">联系QQ：</span>{$qq}</dt>{/if}
+	        	{if $qq}<dt><span class="t">联系QQ：</span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$qq}:41" alt="点击这里给我发消息" title="点击这里给我发消息"></a></dt>{/if}
 	            <dt><span class="t">联系电话：</span>{if getinfocache('img_contact')}{string2img($phone)}{else}{$phone}{/if}</dt>
 	        </dl>
 	        <div class="btn">
